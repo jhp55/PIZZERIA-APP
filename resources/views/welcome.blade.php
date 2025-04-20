@@ -1,5 +1,5 @@
 <x-app-layout>
-    @section('title', 'Inicio - JVJ Pizzería')
+    @section('title')
 
-    
+
 </x-app-layout>

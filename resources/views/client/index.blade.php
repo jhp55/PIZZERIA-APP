@@ -27,8 +27,8 @@
   
                           {{-- Acciones --}}
                          <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                              {{-- <a href="{{ route('clients.edit', ['client' => $client->id]) }}"
-                                 class="text-blue-600 hover:text-blue-800 mr-3">Editar</a> --}}
+                             <a href="{{ route('clients.edit', ['client' => $client->id]) }}"
+                                 class="text-blue-600 hover:text-blue-800 mr-3">Editar</a>
   
                               <form action="{{ route('clients.destroy', ['client' => $client->id]) }}" method="POST" class="inline">
                                   @csrf

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\clients;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -13,9 +14,9 @@ class clientsController extends Controller
     public function index()
     {
         $clients = DB::table('clients')
-        ->join('users', 'clients.id', '=', 'users.id')
-        ->select('clients.*', 'users.name')
-        ->get();
+            ->join('users', 'clients.user_id', '=', 'users.id')
+            ->select('clients.*', 'users.name')
+            ->get();
         return view('client.index', ['clients' => $clients]);
     }
 
@@ -24,7 +25,10 @@ class clientsController extends Controller
      */
     public function create()
     {
-        //
+        $users = DB::table('users')
+            ->orderBy('name')
+            ->get();
+        return view('client.new', ['users' => $users]);
     }
 
     /**
@@ -32,7 +36,18 @@ class clientsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $client = new clients();
+
+        $client->user_id = $request->user_id;
+        $client->address = $request->address;
+        $client->phone = $request->phone;
+        $client->save();
+
+        $clients = DB::table('clients')
+            ->join('users', 'clients.user_id', '=', 'users.id')
+            ->select('clients.*', 'users.name')
+            ->get();
+        return view('client.index', ['clients' => $clients]);
     }
 
     /**

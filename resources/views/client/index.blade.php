@@ -14,6 +14,7 @@
                       <th class="px-6 py-3 text-left text-sm font-medium text-gray-700 uppercase tracking-wider">Usuario</th>
                       <th class="px-6 py-3 text-left text-sm font-medium text-gray-700 uppercase tracking-wider">Dirección</th>
                       <th class="px-6 py-3 text-left text-sm font-medium text-gray-700 uppercase tracking-wider">Teléfono</th>
+                      <th class="px-6 py-3 text-left text-sm font-medium text-gray-700 uppercase tracking-wider">Acciones</th>
                   </tr>
               </thead>
               <tbody class="divide-y divide-gray-200">
@@ -25,16 +26,16 @@
                           <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $client->phone }}</td>
   
                           {{-- Acciones --}}
-                          {{-- <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                              <a href="{{ route('clients.edit', ['client' => $client->id]) }}"
-                                 class="text-blue-600 hover:text-blue-800 mr-3">Editar</a>
+                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                              {{-- <a href="{{ route('clients.edit', ['client' => $client->id]) }}"
+                                 class="text-blue-600 hover:text-blue-800 mr-3">Editar</a> --}}
   
                               <form action="{{ route('clients.destroy', ['client' => $client->id]) }}" method="POST" class="inline">
                                   @csrf
                                   @method('delete')
                                   <button type="submit" class="text-red-600 hover:text-red-800">Eliminar</button>
                               </form>
-                          </td> --}}
+                          </td>
                       </tr>
                   @endforeach
               </tbody>

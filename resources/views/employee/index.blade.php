@@ -34,13 +34,12 @@
     
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                 {{-- <a href="{{ route('employees.edit', ['employee' => $employee->id]) }}"
-                                   class="text-blue-600 hover:text-blue-800 mr-3">Editar</a>
+                                   class="text-blue-600 hover:text-blue-800 mr-3">Editar</a>--}}
     
-                                <form action="{{ route('employees.destroy', ['employee' => $employee->id]) }}"
-                                      method="POST" class="inline">
+                                <form action="{{ route('employees.destroy', ['employee' => $employee->id]) }}" method="POST" class="inline">
                                     @csrf
                                     @method('delete')
-                                    <button type="submit" class="text-red-600 hover:text-red-800">Eliminar</button> --}}
+                                    <button type="submit" class="text-red-600 hover:text-red-800">Eliminar</button> 
                                 </form>
                             </td>
                         </tr>

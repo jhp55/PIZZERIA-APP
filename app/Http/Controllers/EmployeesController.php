@@ -81,6 +81,13 @@ class EmployeesController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $employee = employees::find($id);
+        $employee -> delete();
+
+        $employees = DB::table('employees')
+        ->join('users', 'employees.user_id', '=', 'users.id')
+        ->select('employees.*', 'users.name')
+        ->get();
+        return view('employee.index', ['employees' => $employees]);
     }
 }

@@ -30,6 +30,7 @@ Route::get('/clients/{client}/edit',[ClientsController::class,'edit'])->name('cl
 Route::get('/employees',[EmployeesController::class,'index']) -> name('employees.index');
 Route::post('/employees',[EmployeesController::class,'store']) -> name('employees.store');
 Route::get('/employees/create',[EmployeesController::class,'create'])->name('employees.create');
+Route::delete('/employees/{employee}',[EmployeesController::class,'destroy'])->name('employees.destroy');
 
 
 require __DIR__.'/auth.php';

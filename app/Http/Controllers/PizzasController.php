@@ -53,7 +53,8 @@ class PizzasController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $pizza = Pizzas::find($id); 
+        return view('pizza.edit', compact('pizza'));
     }
 
     /**
@@ -61,7 +62,11 @@ class PizzasController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $pizza = pizzas::findOrFail($id);
+        $pizza->name = $request->name;
+        $pizza->save();
+    
+        return redirect()->route('pizzas.index');
     }
 
     /**

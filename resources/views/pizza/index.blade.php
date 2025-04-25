@@ -24,8 +24,8 @@
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $pizza->id }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $pizza->name }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                               {{--  <a href="{{ route('pizzas.edit', ['pizza' => $pizza->id]) }}"
-                                   class="text-blue-600 hover:text-blue-800 mr-3">Editar</a>--}}
+                             <a href="{{ route('pizzas.edit', ['pizza' => $pizza->id]) }}"
+                                   class="text-blue-600 hover:text-blue-800 mr-3">Editar</a>
     
                                 <form action="{{ route('pizzas.destroy', ['pizza' => $pizza->id]) }}" method="POST" class="inline">
                                     @csrf

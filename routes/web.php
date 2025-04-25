@@ -39,5 +39,7 @@ Route::get('/pizzas',[pizzasController::class,'index']) -> name('pizzas.index');
 Route::post('/pizzas',[pizzasController::class,'store']) -> name('pizzas.store');
 Route::get('/pizzas/pizza',[pizzasController::class,'create'])->name('pizzas.create');
 Route::delete('/pizzas/{pizza}',[pizzasController::class,'destroy'])->name('pizzas.destroy');
+Route::put('/pizzas/{pizza}',[pizzasController::class,'update'])->name('pizzas.update');
+Route::get('/pizzas/{pizza}/edit',[pizzasController::class,'edit'])->name('pizzas.edit');
 
 require __DIR__.'/auth.php';

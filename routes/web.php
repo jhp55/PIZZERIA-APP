@@ -38,5 +38,6 @@ Route::get('/employees/{employee}/edit',[EmployeesController::class,'edit'])->na
 Route::get('/pizzas',[pizzasController::class,'index']) -> name('pizzas.index');
 Route::post('/pizzas',[pizzasController::class,'store']) -> name('pizzas.store');
 Route::get('/pizzas/pizza',[pizzasController::class,'create'])->name('pizzas.create');
+Route::delete('/pizzas/{pizza}',[pizzasController::class,'destroy'])->name('pizzas.destroy');
 
 require __DIR__.'/auth.php';

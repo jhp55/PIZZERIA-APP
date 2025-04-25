@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\EmployeesController;
 use App\Http\Controllers\PizzasController;
+use App\Http\Controllers\PizzaSizeController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -41,5 +42,7 @@ Route::get('/pizzas/pizza',[pizzasController::class,'create'])->name('pizzas.cre
 Route::delete('/pizzas/{pizza}',[pizzasController::class,'destroy'])->name('pizzas.destroy');
 Route::put('/pizzas/{pizza}',[pizzasController::class,'update'])->name('pizzas.update');
 Route::get('/pizzas/{pizza}/edit',[pizzasController::class,'edit'])->name('pizzas.edit');
+
+Route::get('/pizza_sizes',[PizzaSizeController::class,'index']) -> name('pizza_sizes.index');
 
 require __DIR__.'/auth.php';

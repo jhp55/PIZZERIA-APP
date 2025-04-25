@@ -8,13 +8,13 @@
   
       <div class="overflow-x-auto bg-white shadow-md rounded-lg">
           <table class="min-w-full divide-y divide-gray-200">
-              <thead class="bg-gray-100">
+              <thead class="bg-yellow-500">
                   <tr>
-                      <th class="px-6 py-3 text-left text-sm font-medium text-gray-700 uppercase tracking-wider">Código</th>
-                      <th class="px-6 py-3 text-left text-sm font-medium text-gray-700 uppercase tracking-wider">Usuario</th>
-                      <th class="px-6 py-3 text-left text-sm font-medium text-gray-700 uppercase tracking-wider">Dirección</th>
-                      <th class="px-6 py-3 text-left text-sm font-medium text-gray-700 uppercase tracking-wider">Teléfono</th>
-                      <th class="px-6 py-3 text-left text-sm font-medium text-gray-700 uppercase tracking-wider">Acciones</th>
+                      <th class="px-6 py-3 text-left text-sm font-medium text-cyan-50 uppercase tracking-wider">Código</th>
+                      <th class="px-6 py-3 text-left text-sm font-medium text-cyan-50 uppercase tracking-wider">Usuario</th>
+                      <th class="px-6 py-3 text-left text-sm font-medium text-cyan-50 uppercase tracking-wider">Dirección</th>
+                      <th class="px-6 py-3 text-left text-sm font-medium text-cyan-50 uppercase tracking-wider">Teléfono</th>
+                      <th class="px-6 py-3 text-left text-sm font-medium text-cyan-50 uppercase tracking-wider">Acciones</th>
                   </tr>
               </thead>
               <tbody class="divide-y divide-gray-200">

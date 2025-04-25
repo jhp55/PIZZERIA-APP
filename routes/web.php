@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClientsController;
+use App\Http\Controllers\EmployeesController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -24,6 +25,9 @@ Route::get('/clients/create',[ClientsController::class,'create'])->name('clients
 Route::delete('/clients/{client}',[ClientsController::class,'destroy'])->name('clients.destroy');
 Route::put('/clients/{client}',[ClientsController::class,'update'])->name('clients.update');
 Route::get('/clients/{client}/edit',[ClientsController::class,'edit'])->name('clients.edit');
+
+
+Route::get('/employees',[EmployeesController::class,'index']) -> name('employees.index');
 
 
 require __DIR__.'/auth.php';

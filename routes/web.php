@@ -31,6 +31,7 @@ Route::get('/employees',[EmployeesController::class,'index']) -> name('employees
 Route::post('/employees',[EmployeesController::class,'store']) -> name('employees.store');
 Route::get('/employees/create',[EmployeesController::class,'create'])->name('employees.create');
 Route::delete('/employees/{employee}',[EmployeesController::class,'destroy'])->name('employees.destroy');
-
+Route::put('/employees/{employee}',[EmployeesController::class,'update'])->name('employees.update');
+Route::get('/employees/{employee}/edit',[EmployeesController::class,'edit'])->name('employees.edit');
 
 require __DIR__.'/auth.php';

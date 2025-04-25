@@ -33,8 +33,8 @@
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ \Carbon\Carbon::parse($employee->hire_date)->format('d/m/Y') }}</td>
     
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                {{-- <a href="{{ route('employees.edit', ['employee' => $employee->id]) }}"
-                                   class="text-blue-600 hover:text-blue-800 mr-3">Editar</a>--}}
+                                <a href="{{ route('employees.edit', ['employee' => $employee->id]) }}"
+                                   class="text-blue-600 hover:text-blue-800 mr-3">Editar</a>
     
                                 <form action="{{ route('employees.destroy', ['employee' => $employee->id]) }}" method="POST" class="inline">
                                     @csrf

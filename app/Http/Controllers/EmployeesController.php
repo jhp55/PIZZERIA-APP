@@ -25,7 +25,10 @@ class EmployeesController extends Controller
      */
     public function create()
     {
-        //
+        $users = DB::table('users')
+            ->orderBy('name')
+            ->get();
+        return view('employee.new', ['users' => $users]);
     }
 
     /**
@@ -33,7 +36,20 @@ class EmployeesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $employee = new employees();
+
+        $employee->user_id = $request->user_id;
+        $employee->position = $request->position;
+        $employee->identification_number = $request->identification_number;
+        $employee->salary = $request->salary;
+        $employee->hire_date = $request->hire_date;
+        $employee->save();
+
+        $employees = DB::table('employees')
+            ->join('users', 'employees.user_id', '=', 'users.id')
+            ->select('employees.*', 'users.name')
+            ->get();
+        return view('employee.index', ['employees' => $employees]);
     }
 
     /**

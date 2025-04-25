@@ -36,5 +36,7 @@ Route::put('/employees/{employee}',[EmployeesController::class,'update'])->name(
 Route::get('/employees/{employee}/edit',[EmployeesController::class,'edit'])->name('employees.edit');
 
 Route::get('/pizzas',[pizzasController::class,'index']) -> name('pizzas.index');
+Route::post('/pizzas',[pizzasController::class,'store']) -> name('pizzas.store');
+Route::get('/pizzas/pizza',[pizzasController::class,'create'])->name('pizzas.create');
 
 require __DIR__.'/auth.php';

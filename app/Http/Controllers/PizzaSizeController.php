@@ -80,6 +80,15 @@ class PizzaSizeController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $pizza_size = PizzaSizes::find($id);
+        $pizza_size -> delete();
+
+        $pizza_size = DB::table('pizza_size')
+
+        ->join('pizzas', 'pizza_size.pizza_id', '=', 'pizzas.id')
+        ->select('pizza_size.*', 'pizzas.name as pizza_name') 
+        ->get();
+
+    return view('pizza_size.index', ['pizza_size' => $pizza_size]);
     }
 }

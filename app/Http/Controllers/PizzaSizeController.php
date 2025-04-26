@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pizza_size;
+use App\Models\Pizzas;
+use App\Models\PizzaSizes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -15,10 +16,10 @@ class PizzaSizeController extends Controller
     {
         $pizza_size = DB::table('pizza_size')
         ->join('pizzas', 'pizza_size.pizza_id', '=', 'pizzas.id')
-        ->select('pizza_size.*', 'pizzas.name as pizza_name') // ← ALIAS AQUÍ
+        ->select('pizza_size.*', 'pizzas.name as pizza_name') 
         ->get();
 
-    return view('pizza_size.index', ['pizza_size' => $pizza_size]);
+        return view('pizza_size.index', ['pizza_size' => $pizza_size]);
     }
 
     /**
@@ -26,7 +27,8 @@ class PizzaSizeController extends Controller
      */
     public function create()
     {
-        //
+        $pizzas = Pizzas::all();
+        return view('pizza_size.new', ['pizzas' => $pizzas]);
     }
 
     /**
@@ -34,7 +36,19 @@ class PizzaSizeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $pizza_size = new PizzaSizes();
+        $pizza_size->pizza_id = $request->pizza_id;
+        $pizza_size->size = $request->size;
+        $pizza_size->price = $request->price;
+        $pizza_size->save();
+
+        $pizza_size = DB::table('pizza_size')
+
+            ->join('pizzas', 'pizza_size.pizza_id', '=', 'pizzas.id')
+            ->select('pizza_size.*', 'pizzas.name as pizza_name') 
+            ->get();
+
+        return view('pizza_size.index', ['pizza_size' => $pizza_size]);
     }
 
     /**

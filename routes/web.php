@@ -47,5 +47,7 @@ Route::get('/pizza_sizes',[PizzaSizeController::class,'index']) -> name('pizza_s
 Route::post('/pizza_sizes',[PizzaSizeController::class,'store']) -> name('pizza_sizes.store');
 Route::get('/pizza_sizes/pizza_size',[PizzaSizeController::class,'create'])->name('pizza_sizes.create');
 Route::delete('/pizza_sizes/{pizza_size}',[PizzaSizeController::class,'destroy'])->name('pizza_sizes.destroy');
+Route::put('/pizza_sizes/{pizza_size}',[PizzaSizeController::class,'update'])->name('pizza_sizes.update');
+Route::get('/pizza_sizes/{pizza_size}/edit',[PizzaSizeController::class,'edit'])->name('pizza_sizes.edit');
 
 require __DIR__.'/auth.php';

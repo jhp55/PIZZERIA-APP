@@ -1,5 +1,5 @@
 <x-app-layout>
-    @section('title', 'Employees - JVJ Pizzería')
+    @section('title', 'pizza size - JVJ Pizzería')
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <h1 class="text-2xl font-bold text-gray-800 mb-6">Listado de Tamaños de Pizza</h1>
@@ -28,8 +28,8 @@
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ ucfirst($size->size) }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${{ number_format($size->price, 2) }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                {{-- <a href="{{ route('pizza_sizes.edit', $size->id) }}"
-                                   class="text-blue-600 hover:text-blue-800 mr-3">Editar</a>--}}
+                              <a href="{{ route('pizza_sizes.edit', $size->id) }}"
+                                   class="text-blue-600 hover:text-blue-800 mr-3">Editar</a>
     
                                 <form action="{{ route('pizza_sizes.destroy', $size->id) }}" method="POST" class="inline">
                                     @csrf

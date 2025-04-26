@@ -64,7 +64,11 @@ class PizzaSizeController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $pizza_size = PizzaSizes::find($id);
+        $pizzas = DB::table('pizzas')
+        ->orderBy('name')
+        ->get();
+        return view('pizza_size.edit',['pizza_size' => $pizza_size, 'pizzas' => $pizzas]);
     }
 
     /**
@@ -72,7 +76,21 @@ class PizzaSizeController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $pizza_size = PizzaSizes::find($id);
+        $pizza_size->pizza_id = $request->pizza_id;
+        $pizza_size->size = $request->size;
+        $pizza_size->price = $request->price;
+        $pizza_size->save();
+
+        
+        $pizza_size = DB::table('pizza_size')
+
+            ->join('pizzas', 'pizza_size.pizza_id', '=', 'pizzas.id')
+            ->select('pizza_size.*', 'pizzas.name as pizza_name') 
+            ->get();
+
+        return view('pizza_size.index', ['pizza_size' => $pizza_size]);
+
     }
 
     /**

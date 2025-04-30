@@ -25,7 +25,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('employees', EmployeesController::class);
     Route::resource('pizzas', PizzasController::class);
     Route::resource('pizza_sizes', PizzaSizeController::class);
-
 });
 
 

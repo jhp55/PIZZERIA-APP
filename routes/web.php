@@ -6,6 +6,7 @@ use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\EmployeesController;
 use App\Http\Controllers\PizzasController;
 use App\Http\Controllers\PizzaSizeController;
+use App\Http\Controllers\OrderPizzaController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -25,7 +26,11 @@ Route::middleware('auth')->group(function () {
     Route::resource('employees', EmployeesController::class);
     Route::resource('pizzas', PizzasController::class);
     Route::resource('pizza_sizes', PizzaSizeController::class);
+
+    
+    Route::resource('order_pizza', OrderPizzaController::class);
 });
+
 
 
 require __DIR__.'/auth.php';

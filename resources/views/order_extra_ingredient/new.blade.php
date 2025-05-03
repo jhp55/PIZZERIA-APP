@@ -13,7 +13,7 @@
                 <select id="order_id" name="order_id" required
                         class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500">
                     <option selected disabled value="">Seleccione un pedido...</option>
-                    @foreach ($orders as $order)
+                    @foreach ($orders ?? [] as $order)
                         <option value="{{ $order->id }}">#{{ $order->id }} - {{ $order->customer_name ?? 'Cliente' }}</option>
                     @endforeach
                 </select>
@@ -25,8 +25,8 @@
                 <select id="extra_ingredient_id" name="extra_ingredient_id" required
                         class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500">
                     <option selected disabled value="">Seleccione un ingrediente...</option>
-                    @foreach ($extra_ingredients as $ingredient)
-                        <option value="{{ $ingredient->id }}">{{ $ingredient->name }} (${{ number_format($ingredient->price, 2) }})</option>
+                    @foreach ($extraIngredients ?? [] as $ingredient)
+                        <option value="{{ $ingredient->id }}">{{ $ingredient->name }} (${{ number_format($ingredient->price ?? 0, 2) }})</option>
                     @endforeach
                 </select>
             </div>
@@ -34,8 +34,8 @@
             {{-- Cantidad --}}
             <div class="mb-6">
                 <label for="quantity" class="block text-sm font-medium text-gray-700">Cantidad</label>
-                <input type="number" id="quantity" name="quantity" required min="1"
-                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+                <input type="number" id="quantity" name="quantity" required min="1" value="1"
+                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
                        placeholder="Ej. 1">
             </div>
 

@@ -32,6 +32,7 @@ Route::middleware('auth')->group(function () {
     
     Route::resource('order_pizza', OrderPizzaController::class);
     Route::resource('order_extra_ingredient', OrderExtraIngredientController::class);
+    
 });
 
 

@@ -69,27 +69,20 @@ class OrderPizzaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
         $order_pizza = DB::table('order_pizza')->find($id);
 
-        $orders = DB::table('orders')
-            ->select('id', 'customer_name')
-            ->orderBy('id')
-            ->get();
-
-        $pizza_sizes = DB::table('pizza_size')
-            ->select('id', 'size', 'pizza_name', 'price')
-            ->orderBy('size')
-            ->get();
-
+        $orders = DB::table('orders')->orderBy('id')->get();
+        
+        $pizza_sizes = DB::table('pizza_size')->orderBy('size')->get();
+    
         return view('order_pizza.edit', [
             'order_pizza' => $order_pizza,
             'orders' => $orders,
             'pizza_sizes' => $pizza_sizes
         ]);
     }
-
     /**
      * Update the specified resource in storage.
      */

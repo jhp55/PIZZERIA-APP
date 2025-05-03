@@ -21,7 +21,7 @@
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-200">
-                    @foreach ($order_pizza as $order_pizzas)
+                    @foreach ($order_pizza as $order_pizza)
                         <tr class="hover:bg-gray-50">
                             <td class="px-6 py-4 text-sm text-gray-900">{{ $order_pizza->id }}</td>
                             <td class="px-6 py-4 text-sm text-gray-900">{{ $order_pizza->order_id }}</td>
@@ -29,10 +29,10 @@
                             <td class="px-6 py-4 text-sm text-gray-900">{{ $order_pizza->quantity }}</td>
                             {{-- Acciones --}}
                             <td class="px-6 py-4 text-sm font-medium">
-                                <a href="{{ route('order_pizza.edit', $orde_pizza->id) }}"
+                                <a href="{{ route('order_pizza.edit', $order_pizza->id) }}"
                                    class="text-blue-600 hover:text-blue-800 mr-3">Editar</a>
 
-                                <form action="{{ route('order_pizza.destroy', $orderPizza->id) }}" method="POST" class="inline">
+                                <form action="{{ route('order_pizza.destroy', $order_pizza->id) }}" method="POST" class="inline">
                                     @csrf
                                     @method('delete')
                                     <button type="submit" class="text-red-600 hover:text-red-800">Eliminar</button>

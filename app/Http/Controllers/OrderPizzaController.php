@@ -26,7 +26,15 @@ class OrderPizzaController extends Controller
      */
     public function create()
     {
-        //
+        $orders = DB::table('orders')
+        ->orderBy('id')
+        ->get();
+
+        $pizza_sizes = DB::table('pizza_size')
+        ->orderBy('size')
+        ->get();
+
+        return view('order_pizza.new', ['orders' => $orders, 'pizza_sizes' => $pizza_sizes]);
     }
 
     /**

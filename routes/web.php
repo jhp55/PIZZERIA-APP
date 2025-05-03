@@ -7,6 +7,8 @@ use App\Http\Controllers\EmployeesController;
 use App\Http\Controllers\PizzasController;
 use App\Http\Controllers\PizzaSizeController;
 use App\Http\Controllers\OrderPizzaController;
+use App\Http\Controllers\OrderExtraIngredientController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -29,6 +31,7 @@ Route::middleware('auth')->group(function () {
 
     
     Route::resource('order_pizza', OrderPizzaController::class);
+    Route::resource('order_extra_ingredient', OrderExtraIngredientController::class);
 });
 
 

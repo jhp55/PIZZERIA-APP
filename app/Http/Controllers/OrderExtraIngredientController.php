@@ -47,7 +47,19 @@ class OrderExtraIngredientController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $orderExtraIngredient = new OrderExtraIngredient();
+        $orderExtraIngredient->order_id = $request->order_id;
+        $orderExtraIngredient->extra_ingredient_id = $request->extra_ingredient_id;
+        $orderExtraIngredient->quantity = $request->quantity;
+        $orderExtraIngredient->save();
+
+        $orderExtraIngredients = DB::table('order_extra_ingredient')
+            ->join('orders', 'order_extra_ingredient.order_id', '=', 'orders.id')
+            ->join('extra_ingredients', 'order_extra_ingredient.extra_ingredient_id', '=', 'extra_ingredients.id')
+            ->select('order_extra_ingredient.*', 'orders.order_number', 'extra_ingredients.name as ingredient_name')
+            ->get();
+
+        return view('order_extra_ingredient.index', ['orderExtraIngredients' => $orderExtraIngredients]);
     }
 
     /**
@@ -79,6 +91,16 @@ class OrderExtraIngredientController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $orderExtraIngredient = OrderExtraIngredient::find($id);
+        $orderExtraIngredient->delete();
+
+        $orderExtraIngredients = DB::table('order_extra_ingredient')
+            ->join('orders', 'order_extra_ingredient.order_id', '=', 'orders.id')
+            ->join('extra_ingredients', 'order_extra_ingredient.extra_ingredient_id', '=', 'extra_ingredients.id')
+            ->select('order_extra_ingredient.*', 'orders.order_number', 'extra_ingredients.name as ingredient_name')
+            ->get();
+
+        return view('order_extra_ingredient.index', ['orderExtraIngredients' => $orderExtraIngredients]);
+        
     }
 }

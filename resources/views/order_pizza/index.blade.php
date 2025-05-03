@@ -27,7 +27,7 @@
                             <td class="px-6 py-4 text-sm text-gray-900">{{ $order_pizza->order_id }}</td>
                             <td class="px-6 py-4 text-sm text-gray-900">{{ $order_pizza->pizza_size_id }}</td>
                             <td class="px-6 py-4 text-sm text-gray-900">{{ $order_pizza->quantity }}</td>
-                            {{-- Acciones 
+                            {{-- Acciones --}}
                             <td class="px-6 py-4 text-sm font-medium">
                                 <a href="{{ route('order_pizza.edit', $orde_pizza->id) }}"
                                    class="text-blue-600 hover:text-blue-800 mr-3">Editar</a>
@@ -37,7 +37,7 @@
                                     @method('delete')
                                     <button type="submit" class="text-red-600 hover:text-red-800">Eliminar</button>
                                 </form>
-                            </td> --}}
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

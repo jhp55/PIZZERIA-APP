@@ -74,6 +74,10 @@ class RawMaterialsController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $raw_materials = RawMaterials::find($id);
+        $raw_materials->delete();
+
+        $raw_materials = RawMaterials::orderBy('name')->get();
+        return view('raw_materials.index', ['raw_materials' => $raw_materials]);
     }
 }

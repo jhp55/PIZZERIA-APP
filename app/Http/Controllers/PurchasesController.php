@@ -13,7 +13,18 @@ class PurchasesController extends Controller
      */
     public function index()
     {
-        $purchases = Purchases::with(['supplier', 'rawMaterial'])->latest()->get();
+        $purchases = DB::table('purchases')
+            ->join('suppliers', 'purchases.supplier_id', '=', 'suppliers.id')
+            ->join('raw_materials', 'purchases.raw_material_id', '=', 'raw_materials.id')
+            ->select(
+                'purchases.*',
+                'suppliers.name as supplier_name',
+                'raw_materials.name as material_name',
+                'raw_materials.unit as material_unit'
+            )
+            ->orderBy('purchases.purchase_date', 'desc')
+            ->get();
+            
         return view('purchases.index', ['purchases' => $purchases]);
     }
 
@@ -22,7 +33,18 @@ class PurchasesController extends Controller
      */
     public function create()
     {
-        //
+        $suppliers = DB::table('suppliers')
+                ->orderBy('name')
+                ->get();
+                
+        $rawMaterials = DB::table('raw_materials')
+                        ->orderBy('name')
+                        ->get();
+        
+        return view('purchases.create', [
+            'suppliers' => $suppliers,
+            'rawMaterials' => $rawMaterials
+        ]);
     }
 
     /**

@@ -58,7 +58,8 @@ class RawMaterialsController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $raw_materials = RawMaterials::findOrFail($id);
+        return view('raw_materials.edit', ['raw_materials' => $raw_materials]);
     }
 
     /**
@@ -66,7 +67,14 @@ class RawMaterialsController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $raw_materials = RawMaterials::find($id);
+        $raw_materials->name = $request->name;
+        $raw_materials->unit = $request->unit;
+        $raw_materials->current_stock = $request->current_stock;
+        $raw_materials->save();
+
+        $raw_materials = RawMaterials::orderBy('name')->get();
+        return view('raw_materials.index', ['raw_materials' => $raw_materials]);
     }
 
     /**

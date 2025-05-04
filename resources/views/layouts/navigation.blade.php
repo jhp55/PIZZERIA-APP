@@ -56,16 +56,16 @@
 
             @guest
                 <div class="hidden sm:flex sm:items-center sm:ms-6">
-                  
+
                         <a href="{{ route('login') }}" class="text-yellow-500 border border-yellow-500 hover:bg-yellow-500 hover:text-white font-semibold py-2 px-4 rounded mr-2 transition">
                           Iniciar sesión
                         </a>
-                      
-                  
+
+
                         <a href="{{ route('register') }}" class="text-gray-700 border border-gray-400 hover:bg-gray-400 hover:text-white font-semibold py-2 px-4 rounded transition">
                           Registrarse
                         </a>
-                                       
+
                 </div>
             @endguest
 
@@ -76,17 +76,7 @@
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                         <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                         <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
+	@@ -90,47 +72,34 @@
             </x-responsive-nav-link>
         </div>
 

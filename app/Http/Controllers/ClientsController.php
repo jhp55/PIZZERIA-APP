@@ -6,7 +6,7 @@ use App\Models\clients;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class clientsController extends Controller
+class ClientsController extends Controller
 {
     /**
      * Display a listing of the resource.

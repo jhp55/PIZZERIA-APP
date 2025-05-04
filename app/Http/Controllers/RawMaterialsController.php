@@ -24,7 +24,10 @@ class RawMaterialsController extends Controller
      */
     public function create()
     {
-        //
+        $raw_materials = DB::table('raw_materials')
+        ->orderBy('name')
+        ->get();
+        return view('raw_materials.new', ['raw_materials' => $raw_materials]);
     }
 
     /**
@@ -32,7 +35,14 @@ class RawMaterialsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $raw_material = new RawMaterials();
+        $raw_material->name = $request->name;
+        $raw_material->unit = $request->unit;
+        $raw_material->current_stock = $request->current_stock;
+        $raw_material->save();
+
+        $raw_materials = RawMaterials::orderBy('name')->get();
+        return view('raw_materials.index', ['raw_materials' => $raw_materials]);
     }
 
     /**

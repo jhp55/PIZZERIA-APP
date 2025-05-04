@@ -10,7 +10,7 @@ use App\Http\Controllers\OrderPizzaController;
 use App\Http\Controllers\OrderExtraIngredientController;
 use App\Http\Controllers\SuppliersController;
 use App\Http\Controllers\RawMaterialsController;
-
+use App\Http\Controllers\PurchasesController;
 
 
 Route::get('/', function () {
@@ -37,6 +37,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('order_extra_ingredient', OrderExtraIngredientController::class);
     Route::resource('suppliers', SuppliersController::class);
     Route::resource('raw_materials', RawMaterialsController::class);
+    Route::resource('purchases', PurchasesController::class);
 });
 
 

@@ -19,7 +19,7 @@ class Purchases extends Model
 
     public function supplier()
     {
-        return $this->belongsTo(Supplier::class);
+        return $this->belongsTo(Suppliers::class);
     }
 
     /**
@@ -27,6 +27,6 @@ class Purchases extends Model
      */
     public function rawMaterial()
     {
-        return $this->belongsTo(RawMaterial::class);
+        return $this->belongsTo(RawMaterials::class);
     }
 }

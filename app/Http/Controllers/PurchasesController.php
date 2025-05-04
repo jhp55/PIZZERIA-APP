@@ -52,7 +52,30 @@ class PurchasesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'supplier_id' => 'required|exists:suppliers,id',
+            'raw_material_id' => 'required|exists:raw_materials,id',
+            'quantity' => 'required|numeric|min:0.01',
+            'purchase_price' => 'required|numeric|min:0.01',
+            'purchase_date' => 'required|date'
+        ]);
+    
+        // Crear nueva compra
+        $purchase = new Purchase();
+        $purchase->supplier_id = $request->supplier_id;
+        $purchase->raw_material_id = $request->raw_material_id;
+        $purchase->quantity = $request->quantity;
+        $purchase->purchase_price = $request->purchase_price;
+        $purchase->purchase_date = $request->purchase_date;
+        $purchase->save();
+    
+        // Actualizar el stock de la materia prima
+        DB::table('raw_materials')
+            ->where('id', $request->raw_material_id)
+            ->increment('current_stock', $request->quantity);
+
+        return redirect()->route('purchases.index')
+            ->with('success', 'Compra registrada exitosamente');
     }
 
     /**
@@ -84,6 +107,11 @@ class PurchasesController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $purchase = Purchase::findOrFail($id);
+        $purchase->delete();
+
+        // Redireccionar al listado con mensaje de éxito
+        return redirect()->route('purchases.index')
+                        ->with('success', 'Compra eliminada correctamente');
     }
 }

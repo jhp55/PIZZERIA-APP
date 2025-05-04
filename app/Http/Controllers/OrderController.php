@@ -144,8 +144,11 @@ class OrderController extends Controller
             ->with('success', 'Pedido actualizado exitosamente');
     }
 
-    public function destroy(Order $order)
+    public function destroy(Branch $branch)
     {
+        $branch->delete();
 
+        return redirect()->route('branches.index')
+            ->with('success', 'Sucursal eliminada exitosamente');
     }
 }

@@ -33,7 +33,18 @@ class PizzaRawMaterialController extends Controller
      */
     public function create()
     {
-        //
+        $pizzas = DB::table('pizzas')
+                ->orderBy('name')
+                ->get();
+                
+        $rawMaterials = DB::table('raw_materials')
+                        ->orderBy('name')
+                        ->get();
+        
+        return view('pizza_raw_material.create', [
+            'pizzas' => $pizzas,
+            'rawMaterials' => $rawMaterials
+        ]);
     }
 
     /**
@@ -41,7 +52,24 @@ class PizzaRawMaterialController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $pizzaRawMaterial = new PizzaRawMaterial();
+        $pizzaRawMaterial->pizza_id = $request->pizza_id;
+        $pizzaRawMaterial->raw_material_id = $request->raw_material_id;
+        $pizzaRawMaterial->quantity = $request->quantity;
+        $pizzaRawMaterial->save();
+
+        $pizzaRawMaterials = DB::table('pizza_raw_material')
+            ->join('pizzas', 'pizza_raw_material.pizza_id', '=', 'pizzas.id')
+            ->join('raw_materials', 'pizza_raw_material.raw_material_id', '=', 'raw_materials.id')
+            ->select(
+                'pizza_raw_material.*',
+                'pizzas.name as pizza_name',
+                'raw_materials.name as raw_material_name',
+                'raw_materials.unit as raw_material_unit'
+            )
+            ->get();
+
+        return view('pizza_raw_material.index', ['pizzaRawMaterials' => $pizzaRawMaterials]);
     }
 
     /**

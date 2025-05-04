@@ -10,13 +10,12 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-        
 
         <!-- Scripts -->
         @vite(['resources/css/app.css','resources/css/style.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
+    <div class="min-h-screen bg-gray-100">
             @include('layouts.navigation')
 
             <!-- Page Heading -->
@@ -30,20 +29,19 @@
 
             <!-- Page Content -->
             <main>
-                {{ $slot }}
-            </main>
+            {{ $slot }}        
+        </main>
         </div>
-
 
         <footer class="bg-neutral-400  py-8 px-4">
             <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
-              
+
               <!-- Logo y nombre -->
               <div>
                 <h2 class="text-2xl font-bold mb-2">🍕 Pizzería JVJ</h2>
                 <p class="text-sm">¡La mejor pizza artesanal, al horno de leña!</p>
               </div>
-          
+
               <!-- Enlaces rápidos -->
               <div>
                 <h3 class="text-xl font-semibold mb-2">Enlaces</h3>
@@ -54,7 +52,7 @@
                   <li><a href="/contacto" class="hover:underline">Contáctanos</a></li>
                 </ul>
               </div>
-          
+
               <!-- Información de contacto -->
               <div>
                 <h3 class="text-xl font-semibold mb-2">Contacto</h3>
@@ -62,14 +60,14 @@
                 <p class="text-sm">📞 (123) 456-7890</p>
                 <p class="text-sm">✉️ contacto@jvj.com</p>
               </div>
-          
+
             </div>
-          
+
             <div class="mt-6 border-t border-natural-600 pt-4 text-center text-xs">
               &copy; 2025 Pizzería JVJ. Todos los derechos reservados.
             </div>
           </footer>
-          
 
+          
     </body>
 </html>

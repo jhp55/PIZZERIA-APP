@@ -3,63 +3,93 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\User; // Cliente
+use App\Models\Branch;
+use App\Models\Employee;
+use App\Models\PizzaSize;
+use App\Models\ExtraIngredient;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $orders = Order::with(['client', 'branch', 'deliveryPerson', 'pizzas', 'extraIngredients'])
+                      ->latest()
+                      ->get();
+        
+        return view('orders.index', compact('orders'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        $clients = User::where('role', 'client')->get();
+        $branches = Branch::all();
+        $deliveryPeople = Employee::where('position', 'repartidor')->get();
+        $pizzas = PizzaSize::with('pizza', 'size')->get();
+        $extraIngredients = ExtraIngredient::all();
+        
+        return view('orders.create', compact(
+            'clients', 
+            'branches', 
+            'deliveryPeople',
+            'pizzas',
+            'extraIngredients'
+        ));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'client_id' => 'required|exists:users,id',
+            'branch_id' => 'required|exists:branches,id',
+            'total_price' => 'required|numeric|min:0',
+            'status' => 'required|in:pendiente,en_preparacion,listo,entregado',
+            'delivery_type' => 'required|in:en_local,a_domicilio',
+            'delivery_person_id' => 'nullable|exists:employees,id',
+            'pizzas' => 'sometimes|array',
+            'pizzas.*.id' => 'required|exists:pizza_sizes,id',
+            'pizzas.*.quantity' => 'required|integer|min:1',
+            'extra_ingredients' => 'sometimes|array',
+            'extra_ingredients.*.id' => 'required|exists:extra_ingredients,id',
+            'extra_ingredients.*.quantity' => 'required|integer|min:1'
+        ]);
+
+        $order = Order::create($validated);
+
+        if (isset($validated['pizzas'])) {
+            foreach ($validated['pizzas'] as $pizza) {
+                $order->pizzas()->attach($pizza['id'], ['quantity' => $pizza['quantity']]);
+            }
+        }
+
+        if (isset($validated['extra_ingredients'])) {
+            foreach ($validated['extra_ingredients'] as $ingredient) {
+                $order->extraIngredients()->attach($ingredient['id'], ['quantity' => $ingredient['quantity']]);
+            }
+        }
+
+        return redirect()->route('orders.index')
+            ->with('success', 'Pedido creado exitosamente');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Order $order)
     {
-        //
+ 
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Order $order)
     {
-        //
+ 
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Order $order)
     {
-        //
+
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Order $order)
     {
-        //
+
     }
 }

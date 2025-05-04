@@ -16,7 +16,7 @@ class PizzaIngredient extends Model
         'ingredient_id'
     ];
 
-    public function pizza()
+    public function pizzas()
     {
         return $this->belongsTo(Pizza::class);
     }

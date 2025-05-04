@@ -2,37 +2,64 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pizza;
+use App\Models\Pizzas;
 use App\Models\Ingredient;
+use App\Models\PizzaIngredient;
 use Illuminate\Http\Request;
 
 class PizzaIngredientController extends Controller
 {
-    public function index(Pizza $pizza)
+    public function index()
     {
-        $ingredients = $pizza->ingredients;
-        $availableIngredients = Ingredient::whereNotIn('id', $ingredients->pluck('id'))->get();
-        
-        return view('pizzas.ingredients.index', compact('pizza', 'ingredients', 'availableIngredients'));
+        $pizzaIngredients = PizzaIngredient::with(['pizza', 'ingredient'])->get();
+        return view('pizza_ingredients.index', compact('pizzaIngredients'));
     }
 
-    public function store(Request $request, Pizza $pizza)
+    public function create()
     {
-        $request->validate([
+        $pizzas = Pizzas::all();
+        $ingredients = Ingredient::all();
+        return view('pizza_ingredients.create', compact('pizzas', 'ingredients'));
+    }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'pizza_id' => 'required|exists:pizzas,id',
             'ingredient_id' => 'required|exists:ingredients,id'
         ]);
 
-        $pizza->ingredients()->attach($request->ingredient_id);
+        PizzaIngredient::create($validated);
 
-        return redirect()->route('pizzas.ingredients.index', $pizza)
-            ->with('success', 'Ingrediente agregado exitosamente');
+        return redirect()->route('pizza_ingredients.index')
+            ->with('success', 'Relación Pizza-Ingrediente creada exitosamente');
     }
 
-    public function destroy(Pizza $pizza, Ingredient $ingredient)
+    public function edit(PizzaIngredient $pizzaIngredient)
     {
-        $pizza->ingredients()->detach($ingredient->id);
+        $pizzas = Pizzas::all();
+        $ingredients = Ingredient::all();
+        return view('pizza_ingredients.edit', compact('pizzaIngredient', 'pizzas', 'ingredients'));
+    }
 
-        return redirect()->route('pizzas.ingredients.index', $pizza)
-            ->with('success', 'Ingrediente removido exitosamente');
+    public function update(Request $request, PizzaIngredient $pizzaIngredient)
+    {
+        $validated = $request->validate([
+            'pizza_id' => 'required|exists:pizzas,id',
+            'ingredient_id' => 'required|exists:ingredients,id'
+        ]);
+
+        $pizzaIngredient->update($validated);
+
+        return redirect()->route('pizza_ingredients.index')
+            ->with('success', 'Relación Pizza-Ingrediente actualizada exitosamente');
+    }
+
+    public function destroy(PizzaIngredient $pizzaIngredient)
+    {
+        $pizzaIngredient->delete();
+
+        return redirect()->route('pizza_ingredients.index')
+            ->with('success', 'Relación Pizza-Ingrediente eliminada exitosamente');
     }
 }

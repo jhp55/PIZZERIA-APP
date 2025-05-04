@@ -6,6 +6,7 @@ use App\Http\Controllers\PizzasController;
 use App\Http\Controllers\PizzaSizeController;
 use App\Http\Controllers\IngredientsController;
 use App\Http\Controllers\ExtraIngredientsController;
+use App\Http\Controllers\BranchesController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -27,6 +28,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('pizza_sizes', PizzaSizeController::class);
     Route::resource('ingredients', IngredientsController::class);
     Route::resource('extra_ingredients', ExtraIngredientsController::class);
+    Route::resource('branches', BranchesController::class);
 
 });
 

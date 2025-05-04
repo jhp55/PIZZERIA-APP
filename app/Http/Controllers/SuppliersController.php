@@ -25,7 +25,10 @@ class SuppliersController extends Controller
      */
     public function create()
     {
-        //
+        $suppliers = DB::table('suppliers')
+        ->orderBy('name')
+        ->get();
+        return view('supplier.new', ['suppliers' => $suppliers]);
     }
 
     /**
@@ -33,7 +36,13 @@ class SuppliersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $supplier = new Suppliers();
+        $supplier->name = $request->name;
+        $supplier->contact_info = $request->contact_info;
+        $supplier->save();
+
+        $suppliers = Suppliers::all(); // Obtener todos los proveedores
+        return view('supplier.index', ['suppliers' => $suppliers]);
     }
 
     /**

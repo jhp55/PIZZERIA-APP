@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
-use App\Models\User; // Cliente
+use App\Models\User;
 use App\Models\Branch;
-use App\Models\Employee;
-use App\Models\PizzaSize;
+use App\Models\Employees;
+use App\Models\PizzaSizes;
 use App\Models\ExtraIngredient;
 use Illuminate\Http\Request;
 
@@ -25,8 +25,8 @@ class OrderController extends Controller
     {
         $clients = User::where('role', 'client')->get();
         $branches = Branch::all();
-        $deliveryPeople = Employee::where('position', 'repartidor')->get();
-        $pizzas = PizzaSize::with('pizza', 'size')->get();
+        $deliveryPeople = Employees::where('position', 'repartidor')->get();
+        $pizzas = PizzaSizes::with('pizza', 'size')->get();
         $extraIngredients = ExtraIngredient::all();
         
         return view('orders.create', compact(
@@ -84,7 +84,7 @@ class OrderController extends Controller
     {
         $clients = User::where('role', 'client')->get();
         $branches = Branch::all();
-        $deliveryPeople = Employee::where('position', 'repartidor')->get();
+        $deliveryPeople = EmployeesController::where('position', 'repartidor')->get();
         $pizzas = PizzaSize::with('pizza', 'size')->get();
         $extraIngredients = ExtraIngredient::all();
         
@@ -144,11 +144,10 @@ class OrderController extends Controller
             ->with('success', 'Pedido actualizado exitosamente');
     }
 
-    public function destroy(Branch $branch)
+    public function destroy(Order $order)
     {
-        $branch->delete();
-
-        return redirect()->route('branches.index')
-            ->with('success', 'Sucursal eliminada exitosamente');
+        $order->delete();
+        return redirect()->route('orders.index')
+            ->with('success', 'Pedido eliminado exitosamente');
     }
 }

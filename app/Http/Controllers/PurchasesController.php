@@ -91,7 +91,11 @@ class PurchasesController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $purchase = Purchase::find($id);
+        $suppliers = DB::table('suppliers')
+            ->orderBy('name')
+            ->get();
+        return view('purchase.edit', ['purchase' => $purchase, 'suppliers' => $suppliers]);
     }
 
     /**
@@ -99,7 +103,20 @@ class PurchasesController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $purchase = Purchase::find($id);
+    
+        $purchase->product_name = $request->product_name;
+        $purchase->quantity = $request->quantity;
+        $purchase->price = $request->price;
+        $purchase->supplier_id = $request->supplier_id;
+        $purchase->save();
+
+        $purchases = DB::table('purchases')
+            ->join('suppliers', 'purchases.supplier_id', '=', 'suppliers.id')
+            ->select('purchases.*', 'suppliers.name as supplier_name')
+            ->get();
+
+        return view('purchase.index', ['purchases' => $purchases]);
     }
 
     /**

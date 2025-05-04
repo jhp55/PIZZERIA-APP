@@ -11,6 +11,7 @@ use App\Http\Controllers\OrderExtraIngredientController;
 use App\Http\Controllers\SuppliersController;
 use App\Http\Controllers\RawMaterialsController;
 use App\Http\Controllers\PurchasesController;
+use App\Http\Controllers\PizzaRawMaterialController;
 
 
 Route::get('/', function () {
@@ -38,6 +39,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('suppliers', SuppliersController::class);
     Route::resource('raw_materials', RawMaterialsController::class);
     Route::resource('purchases', PurchasesController::class);
+    Route::resource('pizza_raw_material', PizzaRawMaterialController::class);
 });
 
 

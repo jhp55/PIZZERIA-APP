@@ -5,6 +5,7 @@ use App\Http\Controllers\EmployeesController;
 use App\Http\Controllers\PizzasController;
 use App\Http\Controllers\PizzaSizeController;
 use App\Http\Controllers\IngredientsController;
+use App\Http\Controllers\ExtraIngredientsController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -25,12 +26,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('pizzas', PizzasController::class);
     Route::resource('pizza_sizes', PizzaSizeController::class);
     Route::resource('ingredients', IngredientsController::class);
+    Route::resource('extra_ingredients', ExtraIngredientsController::class);
 
-    Route::get('test-ingredients', function() {
-        $ingredients = \App\Models\Ingredient::all();
-        dd($ingredients); 
-    });
-    
 });
 
 require __DIR__.'/auth.php';

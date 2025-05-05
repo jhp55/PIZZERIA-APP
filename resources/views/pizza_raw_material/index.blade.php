@@ -22,23 +22,23 @@
                 </thead>
                 <tbody class="divide-y divide-gray-200">
                     @foreach ($pizzaRawMaterials as $item)
-                        <tr class="hover:bg-gray-50">
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $item->id }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $item->pizza->name }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $item->rawMaterial->name }} ({{ $item->rawMaterial->unit }})</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $item->quantity }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                <a href="{{ route('pizza_raw_materials.edit', ['pizza_raw_material' => $item->id]) }}"
-                                   class="text-blue-600 hover:text-blue-800 mr-3">Editar</a>
-    
-                                <form action="{{ route('pizza_raw_materials.destroy', ['pizza_raw_material' => $item->id]) }}" method="POST" class="inline">
-                                    @csrf
-                                    @method('delete')
-                                    <button type="submit" class="text-red-600 hover:text-red-800">Eliminar</button> 
-                                </form>
-                            </td>
-                        </tr>
-                    @endforeach
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $item->id }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $item->pizza_name }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $item->raw_material_name }} ({{ $item->raw_material_unit }})</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $item->quantity }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                            <a href="{{ route('pizza_raw_materials.edit', ['pizza_raw_material' => $item->id]) }}"
+                               class="text-blue-600 hover:text-blue-800 mr-3">Editar</a>
+            
+                            <form action="{{ route('pizza_raw_materials.destroy', ['pizza_raw_material' => $item->id]) }}" method="POST" class="inline">
+                                @csrf
+                                @method('delete')
+                                <button type="submit" class="text-red-600 hover:text-red-800">Eliminar</button> 
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
                 </tbody>
             </table>
         </div>

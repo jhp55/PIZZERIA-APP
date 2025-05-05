@@ -41,7 +41,7 @@ class PizzaRawMaterialController extends Controller
                         ->orderBy('name')
                         ->get();
         
-        return view('pizza_raw_material.create', [
+        return view('pizza_raw_material.new', [
             'pizzas' => $pizzas,
             'rawMaterials' => $rawMaterials
         ]);

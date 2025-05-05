@@ -84,8 +84,8 @@ class OrderController extends Controller
     {
         $clients = User::where('role', 'client')->get();
         $branches = Branch::all();
-        $deliveryPeople = EmployeesController::where('position', 'repartidor')->get();
-        $pizzas = PizzaSize::with('pizza', 'size')->get();
+        $deliveryPeople = Employees::where('position', 'repartidor')->get();
+        $pizzas = PizzaSizes::with('pizza', 'size')->get();
         $extraIngredients = ExtraIngredient::all();
         
         $order->load(['pizzas', 'extraIngredients']);
@@ -129,7 +129,6 @@ class OrderController extends Controller
             $order->pizzas()->detach();
         }
 
-        // Sincronizar ingredientes extra
         if (isset($validated['extra_ingredients'])) {
             $extrasData = [];
             foreach ($validated['extra_ingredients'] as $ingredient) {

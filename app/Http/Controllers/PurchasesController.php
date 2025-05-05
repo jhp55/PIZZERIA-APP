@@ -1,8 +1,12 @@
 <?php
-
 namespace App\Http\Controllers;
 
+use App\Models\PizzaRawMaterial;
 use App\Models\Purchases;
+use App\Models\Supplier;
+use App\Models\RawMaterial;
+use App\Models\RawMaterials;
+use App\Models\Suppliers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -13,16 +17,9 @@ class PurchasesController extends Controller
      */
     public function index()
     {
-        $purchases = DB::table('purchases')
-            ->join('suppliers', 'purchases.supplier_id', '=', 'suppliers.id')
-            ->join('raw_materials', 'purchases.raw_material_id', '=', 'raw_materials.id')
-            ->select(
-                'purchases.*',
-                'suppliers.name as supplier_name',
-                'raw_materials.name as material_name',
-                'raw_materials.unit as material_unit'
-            )
-            ->orderBy('purchases.purchase_date', 'desc')
+        // Obtener las compras con sus relaciones
+        $purchases = Purchases::with('supplier', 'rawMaterial')
+            ->orderBy('purchase_date', 'desc')
             ->get();
             
         return view('purchases.index', ['purchases' => $purchases]);
@@ -33,15 +30,10 @@ class PurchasesController extends Controller
      */
     public function create()
     {
-        $suppliers = DB::table('suppliers')
-                ->orderBy('name')
-                ->get();
-                
-        $rawMaterials = DB::table('raw_materials')
-                        ->orderBy('name')
-                        ->get();
+        $suppliers = Suppliers::orderBy('name')->get();
+        $rawMaterials = RawMaterials::orderBy('name')->get();
         
-        return view('purchases.create', [
+        return view('purchases.new', [
             'suppliers' => $suppliers,
             'rawMaterials' => $rawMaterials
         ]);
@@ -61,7 +53,7 @@ class PurchasesController extends Controller
         ]);
     
         // Crear nueva compra
-        $purchase = new Purchase();
+        $purchase = new Purchases();
         $purchase->supplier_id = $request->supplier_id;
         $purchase->raw_material_id = $request->raw_material_id;
         $purchase->quantity = $request->quantity;
@@ -79,22 +71,12 @@ class PurchasesController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
     {
-        $purchase = Purchase::find($id);
-        $suppliers = DB::table('suppliers')
-            ->orderBy('name')
-            ->get();
+        $purchase = Purchases::findOrFail($id);
+        $suppliers = Suppliers::orderBy('name')->get();
         return view('purchase.edit', ['purchase' => $purchase, 'suppliers' => $suppliers]);
     }
 
@@ -103,7 +85,7 @@ class PurchasesController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $purchase = Purchase::find($id);
+        $purchase = Purchases::findOrFail($id);
     
         $purchase->product_name = $request->product_name;
         $purchase->quantity = $request->quantity;
@@ -111,10 +93,7 @@ class PurchasesController extends Controller
         $purchase->supplier_id = $request->supplier_id;
         $purchase->save();
 
-        $purchases = DB::table('purchases')
-            ->join('suppliers', 'purchases.supplier_id', '=', 'suppliers.id')
-            ->select('purchases.*', 'suppliers.name as supplier_name')
-            ->get();
+        $purchases = Purchases::with('supplier')->get();
 
         return view('purchase.index', ['purchases' => $purchases]);
     }
@@ -124,11 +103,10 @@ class PurchasesController extends Controller
      */
     public function destroy(string $id)
     {
-        $purchase = Purchase::findOrFail($id);
+        $purchase = Purchases::findOrFail($id);
         $purchase->delete();
 
-        // Redireccionar al listado con mensaje de éxito
         return redirect()->route('purchases.index')
-                        ->with('success', 'Compra eliminada correctamente');
+            ->with('success', 'Compra eliminada correctamente');
     }
 }

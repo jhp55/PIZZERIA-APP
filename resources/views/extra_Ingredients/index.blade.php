@@ -1,4 +1,4 @@
-@extends('layouts.app')
+<x-app-layout>
 
 @section('title', 'Ingredientes Extra - JVJ Pizzería')
 
@@ -52,4 +52,4 @@
         </table>
     </div>
 </div>
-@endsection
+</x-app-layout>

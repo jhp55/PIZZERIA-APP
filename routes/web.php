@@ -40,7 +40,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('suppliers', SuppliersController::class);
     Route::resource('raw_materials', RawMaterialsController::class);
     Route::resource('purchases', PurchasesController::class);
-    Route::resource('pizza_raw_material', PizzaRawMaterialController::class);
+    Route::resource('pizza_raw_materials', PizzaRawMaterialController::class);
 
     Route::resource('ingredients', IngredientsController::class);
     Route::resource('extra_ingredients', ExtraIngredientsController::class);

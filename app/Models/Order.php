@@ -9,6 +9,7 @@ class Order extends Model
 {
     use HasFactory;
 
+    protected $table = 'orders';
     protected $fillable = [
         'client_id',
         'branch_id',
@@ -35,12 +36,12 @@ class Order extends Model
 
     public function deliveryPerson()
     {
-        return $this->belongsTo(Employee::class, 'delivery_person_id');
+        return $this->belongsTo(Employees::class, 'delivery_person_id');
     }
 
     public function pizzas()
     {
-        return $this->belongsToMany(PizzaSize::class, 'order_pizza')
+        return $this->belongsToMany(PizzaSizes::class, 'order_pizza')
                     ->withPivot('quantity')
                     ->withTimestamps();
     }
